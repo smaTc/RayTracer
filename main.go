@@ -2,13 +2,17 @@ package main
 
 import (
 	"fmt"
+
+	"github.com/smaTc/RayTracer/graphics"
 	"github.com/smaTc/RayTracer/types"
 )
 
 func main() {
 	fmt.Println("Hello")
-	p := types.Vector{1, 1, 1, 1}
-	fmt.Println(p.X)
-	v := types.Tuple{1, 1, 1, 0}
-	fmt.Println(v.W)
+	v, err := graphics.Tuple(1, 1, 1, 0)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(v.(types.Vector).W)
+
 }
