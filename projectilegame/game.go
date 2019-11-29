@@ -2,9 +2,8 @@ package projectilegame
 
 import (
 	"fmt"
-	"strconv"
-
 	"github.com/smaTc/RayTracer/graphics"
+	"strconv"
 )
 
 func tick(e Environment, p Projectile) Projectile {
@@ -16,7 +15,7 @@ func tick(e Environment, p Projectile) Projectile {
 //Game Function
 func Game() {
 	vec := graphics.NewVector(1, 1, 0)
-	proj := Projectile{Position: graphics.NewPoint(0, 1, 0), Velocity: graphics.NormVector(&vec)}
+	proj := Projectile{Position: graphics.NewPoint(0, 1, 0), Velocity: *vec.Normalize()}
 
 	env := Environment{Gravity: graphics.NewVector(0, -0.1, 0), Wind: graphics.NewVector(-0.01, 0, 0)}
 
