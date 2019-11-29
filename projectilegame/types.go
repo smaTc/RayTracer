@@ -1,14 +1,14 @@
 package projectilegame
 
-import "github.com/smaTc/RayTracer/graphicsmath"
+import "github.com/smaTc/RayTracer/graphics"
 
 //Environment struct
 type Environment struct {
-	Gravity, Wind graphicsmath.Vector
+	Gravity, Wind graphics.Vector
 }
 
 //Projectile struct
 type Projectile struct {
-	Position graphicsmath.Point
-	Velocity graphicsmath.Vector
+	Position graphics.Point
+	Velocity graphics.Vector
 }

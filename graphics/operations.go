@@ -1,10 +1,36 @@
-package graphicsmath
+package graphics
 
 import (
 	"math"
-	"github.com/smaTc/RayTracer/graphicsmath"
 )
 
+func isVector(i interface{}) bool {
+	switch i.(type) {
+	case Vector:
+		return true
+	default:
+		return false
+	}
+}
+
+func isPoint(i interface{}) bool {
+	switch i.(type) {
+	case Point:
+		return true
+	default:
+		return false
+	}
+}
+
+//Equals checks if two Tupels,Points,Vectors are equal
+func Equals(t1, t2 interface{}) bool {
+	if isVector(t1) && isVector(t2) {
+		return t1.(Vector).X == t2.(Vector).X && t1.(Vector).Y == t2.(Vector).Y && t1.(Vector).Z == t2.(Vector).Z
+	} else if isPoint(t1) && isPoint(t2) {
+		return t1.(Point).X == t2.(Point).X && t1.(Point).Y == t2.(Point).Y && t1.(Point).Z == t2.(Point).Z
+	}
+	return false
+}
 
 //Add Function
 func Add(t1, t2 interface{}) interface{} {

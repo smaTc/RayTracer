@@ -1,4 +1,4 @@
-package graphicsmath
+package graphics
 
 //Tuple struct
 type Tuple struct {
@@ -18,4 +18,9 @@ type Point struct {
 type Vector struct {
 	X, Y, Z float64
 	W       int
+}
+
+//Color struct
+type Color struct {
+	Red, Green, Blue float64
 }

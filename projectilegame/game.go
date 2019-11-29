@@ -2,25 +2,26 @@ package projectilegame
 
 import (
 	"fmt"
+	"strconv"
 
-	"github.com/smaTc/RayTracer/graphicsmath"
+	"github.com/smaTc/RayTracer/graphics"
 )
 
 func tick(e Environment, p Projectile) Projectile {
-	pos := graphicsmath.Add(p.Position, p.Velocity).(graphicsmath.Point)
-	vel := graphicsmath.Add(graphicsmath.Add(p.Velocity, e.Gravity), e.Wind).(graphicsmath.Vector)
+	pos := graphics.Add(p.Position, p.Velocity).(graphics.Point)
+	vel := graphics.Add(graphics.Add(p.Velocity, e.Gravity), e.Wind).(graphics.Vector)
 	return Projectile{Position: pos, Velocity: vel}
 }
 
 //Game Function
 func Game() {
-	vec := graphicsmath.NewVector(1, 1, 0)
-	proj := Projectile{Position: graphicsmath.NewPoint(0, 1, 0), Velocity: graphicsmath.NormVector(&vec)}
+	vec := graphics.NewVector(1, 1, 0)
+	proj := Projectile{Position: graphics.NewPoint(0, 1, 0), Velocity: graphics.NormVector(&vec)}
 
-	env := Environment{Gravity: graphicsmath.NewVector(0, -0.1, 0), Wind: graphicsmath.NewVector(-0.01, 0, 0)}
+	env := Environment{Gravity: graphics.NewVector(0, -0.1, 0), Wind: graphics.NewVector(-0.01, 0, 0)}
 
-	for i := 0; proj.Position.Y >= 0; i++ {
+	for i := 1; proj.Position.Y >= 0; i++ {
 		proj = tick(env, proj)
-		fmt.Println("Tick: "+string(i)+" | Projectile Y-Val: ", proj.Position.Y, 64)
+		fmt.Println("Tick: "+strconv.Itoa(i)+" | Projectile Y-Val: ", proj.Position.Y)
 	}
 }

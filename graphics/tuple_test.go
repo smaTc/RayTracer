@@ -1,4 +1,4 @@
-package graphicsmath
+package graphics
 
 import (
 	"testing"
