@@ -1,9 +1,11 @@
-package types
+package graphicsmath
 
 //Tuple struct
 type Tuple struct {
-	X, Y, Z float64
-	W       int
+	X float64
+	Y float64
+	Z float64
+	W int
 }
 
 //Point struct
