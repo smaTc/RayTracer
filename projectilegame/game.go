@@ -2,8 +2,9 @@ package projectilegame
 
 import (
 	"fmt"
-	"github.com/smaTc/RayTracer/graphics"
 	"strconv"
+
+	"github.com/smaTc/RayTracer/graphics"
 )
 
 func tick(e Environment, p Projectile) Projectile {
