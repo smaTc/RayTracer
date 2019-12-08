@@ -35,3 +35,8 @@ func SubColors(c1, c2 *Color) Color {
 	return c1.SubColor(c2)
 
 }
+
+//HadamardProduct Function
+func HadamardProduct(c1, c2 *Color) Color {
+	return MulColors(c1, c2)
+}

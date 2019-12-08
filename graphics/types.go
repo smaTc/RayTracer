@@ -24,3 +24,13 @@ type Vector struct {
 type Color struct {
 	Red, Green, Blue float64
 }
+
+//Pixel struct
+type Pixel struct {
+	Color Color
+}
+
+//Canvas struct
+type Canvas struct {
+	Pixels [][]Pixel
+}
