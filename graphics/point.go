@@ -1,5 +1,11 @@
 package graphics
 
+//Point struct
+type Point struct {
+	X, Y, Z float64
+	W       int
+}
+
 func isPoint(i interface{}) bool {
 	switch i.(type) {
 	case Point:

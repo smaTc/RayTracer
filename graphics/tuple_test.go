@@ -4,7 +4,7 @@ import (
 	"testing"
 )
 
-func Test(t *testing.T) {
+func TestTuple(t *testing.T) {
 	v1 := NewVector(1, 2, 3)
 	v2 := NewVector(1, 2, 3)
 	v3 := NewVector(3, 2, 1)

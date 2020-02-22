@@ -2,6 +2,12 @@ package graphics
 
 import "math"
 
+//Vector struct
+type Vector struct {
+	X, Y, Z float64
+	W       int
+}
+
 func isVector(i interface{}) bool {
 	switch i.(type) {
 	case Vector:

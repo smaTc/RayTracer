@@ -7,3 +7,7 @@ import (
 func main() {
 	projectilegame.Game()
 }
+
+func test() {
+
+}

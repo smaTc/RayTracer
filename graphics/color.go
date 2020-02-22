@@ -1,5 +1,10 @@
 package graphics
 
+//Color struct
+type Color struct {
+	Red, Green, Blue float64
+}
+
 //AddColor Function
 func (c *Color) AddColor(c1 *Color) Color {
 	return Color{c.Red + c1.Red, c.Green + c1.Green, c.Blue + c1.Blue}
