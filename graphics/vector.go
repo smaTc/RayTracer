@@ -33,16 +33,16 @@ func SubVector(v1, v2 *Vector) Vector {
 }
 
 //Scale Function
-func (v1 *Vector) Scale(s *float64) {
-	v1.X *= *s
-	v1.Y *= *s
-	v1.Z *= *s
+func (v1 *Vector) Scale(s float64) {
+	v1.X *= s
+	v1.Y *= s
+	v1.Z *= s
 }
 
 //Normalize Function
 func (v1 *Vector) Normalize() *Vector {
 	n := math.Sqrt(math.Pow(v1.X, 2) + math.Pow(v1.Y, 2) + math.Pow(v1.Z, 2) + math.Pow(float64(v1.W), 2))
-	v1.Scale(&n)
+	v1.Scale(n)
 	return v1
 }
 
