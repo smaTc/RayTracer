@@ -1,6 +1,9 @@
 package graphics
 
-import "fmt"
+import (
+	"fmt"
+	"math"
+)
 
 //Matrix struct
 type Matrix struct {
@@ -8,38 +11,35 @@ type Matrix struct {
 	Identity [][]float64
 }
 
+//GetDimensions func
+func (m *Matrix) GetDimensions() (int, int) {
+	rows := len(m.Values)
+	columns := len(m.Values[0])
+
+	return rows, columns
+}
+
 //GenerateMatrixWithDimension func
 func (m *Matrix) GenerateMatrixWithDimension(rows, columns int) {
 	mat := make([][]float64, rows)
 	for i := 0; i < len(mat); i++ {
 		mat[i] = make([]float64, columns)
-		//id[i] = make([]float64, columns)
-		//id[i][i] = 1
 	}
 	m.Values = mat
-	//m.Identity = id
 	m.generateIdentity()
 }
 
 func (m *Matrix) generateIdentity() {
-	fmt.Println("generating Identity...")
-	if m.Values == nil || len(m.Values) != len(m.Values[0]) {
+	if m.Values == nil || m.Values[0] == nil || len(m.Values) != len(m.Values[0]) {
 		return
 	}
-	fmt.Println("current Matrix:", m.Values)
 	id := make([][]float64, len(m.Values))
-	fmt.Println("Rows generated:", id)
-
-	fmt.Println("generating Columns")
 	for i := 0; i < len(m.Values); i++ {
 
 		id[i] = make([]float64, len(m.Values[0]))
 
 		id[i][i] = 1
-
-		fmt.Println(id, "; iteration:", i)
 	}
-
 	m.Identity = id
 }
 
@@ -51,17 +51,13 @@ func (m *Matrix) SetMatrix(mat [][]float64) {
 
 //Equals func
 func (m *Matrix) Equals(values [][]float64) bool {
-	//fmt.Println("Comparing", m.Values, "and", mat.Values)
 	if len(m.Values) != len(values) {
-		fmt.Println("length wrong")
 		return false
 	}
 
 	for i := 0; i < len(m.Values); i++ {
 		for j := 0; j < len(m.Values[i]); j++ {
 			if m.Values[i][j] != values[i][j] {
-				//fmt.Println("Values not matching")
-				//fmt.Println(m.Values[i][j], "!=", mat.Values[i][j])
 				return false
 			}
 		}
@@ -101,6 +97,77 @@ func (m *Matrix) Multiply(mat *Matrix) Matrix {
 			prod.Values[i][j] = prod.rowTimesColumn(m.GetRow(i), mat.GetColumn(j))
 		}
 	}
-	fmt.Println(prod)
 	return prod
+}
+
+//Transpose func
+func (m *Matrix) Transpose() {
+	if m.Values == nil || m.Values[0] == nil {
+		return
+	}
+
+	mat := make([][]float64, len(m.Values))
+
+	for i := 0; i < len(m.Values); i++ {
+		mat[i] = make([]float64, len(m.Values[0]))
+		mat[i] = m.GetColumn(i)
+	}
+	m.Values = mat
+
+}
+
+//Determinant func
+func (m *Matrix) Determinant() float64 {
+	if len(m.Values) == 2 && len(m.Values[0]) == 2 {
+		return (m.Values[0][0] * m.Values[1][1]) - (m.Values[0][1] * m.Values[1][0])
+	}
+
+	var det float64
+	for i := 0; i < len(m.Values[0]); i++ {
+		det += m.Values[0][i] * m.Cofactor(0, i)
+	}
+	return det
+}
+
+//Submatrix func
+func (m *Matrix) Submatrix(jumpRow, jumpColumn int) Matrix {
+	mat := *m
+	rows, cols := m.GetDimensions()
+	mat.GenerateMatrixWithDimension(rows-1, cols-1)
+
+	for i, matRow := 0, 0; i < len(m.Values); i++ {
+		if i == jumpRow {
+			continue
+		}
+		for j, matCol := 0, 0; j < len(m.Values[0]); j++ {
+			if j != jumpColumn {
+				mat.Values[matRow][matCol] = m.Values[i][j]
+				matCol++
+			}
+		}
+		matRow++
+	}
+
+	return mat
+}
+
+//Minor func
+func (m *Matrix) Minor(row, column int) float64 {
+	mat := m.Submatrix(row, column)
+	return mat.Determinant()
+}
+
+//Cofactor func
+func (m *Matrix) Cofactor(row, column int) float64 {
+	sign := math.Pow(-1, float64(row+column))
+	fmt.Println("Row+Columns:", row+column, "; sign:", sign)
+	return sign * m.Minor(row, column)
+}
+
+//Inverse func
+func (m *Matrix) Inverse() bool {
+	if m.Determinant() == 0 {
+		return false
+	}
+	return true
 }
