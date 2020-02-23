@@ -74,7 +74,7 @@ func TestMatrix(t *testing.T) {
 		t.Error("Matrix equal not working")
 	}
 
-	mTest := m1.Multiply(&m2)
+	mTest := m1.Multiply(m2).(Matrix)
 	//fmt.Println(mTest, m3)
 	if !mTest.Equals(m3.Values) {
 		t.Error("Matrix multiplication not working")
@@ -87,7 +87,7 @@ func TestMatrix(t *testing.T) {
 		{29},
 		{60},
 	}
-	mTestX := m1.Multiply(&m4)
+	mTestX := m1.Multiply(m4).(Matrix)
 	//fmt.Println(mTestX)
 	if !mTestX.Equals(mRes.Values) {
 		t.Error("matrix mult with vector not working")
@@ -184,7 +184,7 @@ func TestMatrix(t *testing.T) {
 		{-0.07895, -0.22368, -0.05263, 0.19737},
 		{-0.52256, -0.81391, -0.30075, 0.30639},
 	}
-	_, invRes := invMatrix.Inverse()
+	//_, invRes := invMatrix.Inverse()
 
 	//Change to float32?
 	/*if !invRes.Equals(invMatrixResult.Values) {
@@ -193,3 +193,21 @@ func TestMatrix(t *testing.T) {
 		t.Error("inversion not working")
 	}*/
 }
+
+func TestChapter4(t *testing.T) {
+
+}
+
+/*
+
+var prod Matrix
+	prod.GenerateMatrixWithDimension(len(m.Values), len(mat.Values[0]))
+
+	for i := 0; i < len(prod.Values); i++ {
+		for j := 0; j < len(prod.Values[0]); j++ {
+			prod.Values[i][j] = prod.rowTimesColumn(m.GetRow(i), mat.GetColumn(j))
+		}
+	}
+	return prod
+
+*/

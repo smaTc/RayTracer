@@ -1,6 +1,7 @@
 package graphics
 
 import (
+	"fmt"
 	"math"
 )
 
@@ -87,16 +88,26 @@ func (m *Matrix) GetColumn(cl int) []float32 {
 }
 
 //Multiply func
-func (m *Matrix) Multiply(mat *Matrix) Matrix {
-	var prod Matrix
-	prod.GenerateMatrixWithDimension(len(m.Values), len(mat.Values[0]))
+func (m *Matrix) Multiply(obj interface{}) interface{} {
+	derefObj := obj
+	switch tp := derefObj.(type) {
+	case Matrix:
+		var prod Matrix
+		mat := derefObj.(Matrix)
+		prod.GenerateMatrixWithDimension(len(m.Values), len(mat.Values[0]))
 
-	for i := 0; i < len(prod.Values); i++ {
-		for j := 0; j < len(prod.Values[0]); j++ {
-			prod.Values[i][j] = prod.rowTimesColumn(m.GetRow(i), mat.GetColumn(j))
+		for i := 0; i < len(prod.Values); i++ {
+			for j := 0; j < len(prod.Values[0]); j++ {
+				prod.Values[i][j] = prod.rowTimesColumn(m.GetRow(i), mat.GetColumn(j))
+			}
 		}
+		return prod
+
+	default:
+		fmt.Println("Unsupported type:", tp)
+		return nil
 	}
-	return prod
+
 }
 
 //Transpose func
@@ -191,4 +202,10 @@ func (m *Matrix) Inverse() (bool, Matrix) {
 	}
 
 	return true, invMat
+}
+
+//Translate func
+func Translate(x, y, z float32) (bool, Matrix) {
+
+	return true, Matrix{}
 }
