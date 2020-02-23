@@ -9,7 +9,7 @@ var m1, m2, m3, m4, id4 Matrix
 func TestMatrix(t *testing.T) {
 
 	m1.SetMatrix(
-		[][]float64{
+		[][]float32{
 			{1, 2, 3, 4},
 			{5, 6, 7, 8},
 			{9, 1, 2, 3},
@@ -17,7 +17,7 @@ func TestMatrix(t *testing.T) {
 		})
 
 	m2.SetMatrix(
-		[][]float64{
+		[][]float32{
 			{9, 8, 7, 6},
 			{5, 4, 3, 2},
 			{1, 9, 8, 7},
@@ -25,7 +25,7 @@ func TestMatrix(t *testing.T) {
 		})
 
 	m3.SetMatrix(
-		[][]float64{
+		[][]float32{
 			{46, 63, 53, 43},
 			{130, 167, 141, 115},
 			{106, 109, 94, 79},
@@ -33,14 +33,14 @@ func TestMatrix(t *testing.T) {
 		})
 
 	m4.SetMatrix(
-		[][]float64{
+		[][]float32{
 			{1},
 			{2},
 			{3},
 			{4},
 		})
 
-	ident4Vals := [][]float64{
+	ident4Vals := [][]float32{
 		{1, 0, 0, 0},
 		{0, 1, 0, 0},
 		{0, 0, 1, 0},
@@ -53,7 +53,7 @@ func TestMatrix(t *testing.T) {
 	}
 
 	col0 := m1.GetColumn(0)
-	testCol := []float64{1, 5, 9, 4}
+	testCol := []float32{1, 5, 9, 4}
 
 	for i := 0; i < len(col0); i++ {
 		if col0[i] != testCol[i] {
@@ -62,7 +62,7 @@ func TestMatrix(t *testing.T) {
 	}
 
 	row0 := m2.GetRow(1)
-	testRow := []float64{5, 4, 3, 2}
+	testRow := []float32{5, 4, 3, 2}
 
 	for i := 0; i < len(row0); i++ {
 		if row0[i] != testRow[i] {
@@ -81,7 +81,7 @@ func TestMatrix(t *testing.T) {
 	}
 
 	var mRes Matrix
-	mRes.Values = [][]float64{
+	mRes.Values = [][]float32{
 		{30},
 		{70},
 		{29},
@@ -94,7 +94,7 @@ func TestMatrix(t *testing.T) {
 	}
 
 	var mTranspose Matrix
-	mTranspose.Values = [][]float64{
+	mTranspose.Values = [][]float32{
 		{1, 5, 9, 4},
 		{2, 6, 1, 5},
 		{3, 7, 2, 6},
@@ -109,7 +109,7 @@ func TestMatrix(t *testing.T) {
 	}
 
 	var mDet2x2 Matrix
-	mDet2x2.Values = [][]float64{
+	mDet2x2.Values = [][]float32{
 		{1, 5},
 		{-3, 2},
 	}
@@ -119,7 +119,7 @@ func TestMatrix(t *testing.T) {
 	}
 
 	var subMat Matrix
-	subMat.Values = [][]float64{
+	subMat.Values = [][]float32{
 		{1, 5, 4},
 		{2, 6, 5},
 		{4, 8, 7},
@@ -132,7 +132,7 @@ func TestMatrix(t *testing.T) {
 	}
 
 	var subTestMinor Matrix
-	subTestMinor.Values = [][]float64{
+	subTestMinor.Values = [][]float32{
 		{3, 5, 0},
 		{2, -1, -7},
 		{6, -1, 5},
@@ -147,7 +147,7 @@ func TestMatrix(t *testing.T) {
 	}
 
 	var determinantMatrix Matrix
-	determinantMatrix.Values = [][]float64{
+	determinantMatrix.Values = [][]float32{
 		{1, 2, 6},
 		{-5, 8, -4},
 		{2, 6, 4},
@@ -158,7 +158,7 @@ func TestMatrix(t *testing.T) {
 	}
 
 	var determinantMatrix2 Matrix
-	determinantMatrix2.Values = [][]float64{
+	determinantMatrix2.Values = [][]float32{
 		{-2, -8, 3, 5},
 		{-3, 1, 7, 3},
 		{1, 2, -9, 6},
@@ -170,7 +170,7 @@ func TestMatrix(t *testing.T) {
 	}
 
 	var invMatrix Matrix
-	invMatrix.Values = [][]float64{
+	invMatrix.Values = [][]float32{
 		{-5, 2, 6, -8},
 		{1, -5, 1, 8},
 		{7, 7, -6, -7},
@@ -178,13 +178,13 @@ func TestMatrix(t *testing.T) {
 	}
 
 	var invMatrixResult Matrix
-	invMatrixResult.Values = [][]float64{
+	invMatrixResult.Values = [][]float32{
 		{0.21805, 0.45113, 0.24060, -0.04511},
 		{-0.80827, -1.45677, -0.44361, 0.52068},
 		{-0.07895, -0.22368, -0.05263, 0.19737},
 		{-0.52256, -0.81391, -0.30075, 0.30639},
 	}
-	//_, invRes := invMatrix.Inverse()
+	_, invRes := invMatrix.Inverse()
 
 	//Change to float32?
 	/*if !invRes.Equals(invMatrixResult.Values) {

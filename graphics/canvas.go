@@ -68,7 +68,7 @@ func adjustColors(p *Pixel) {
 
 }
 
-func clamp(v *float64) {
+func clamp(v *float32) {
 	if *v > 1 {
 		*v = 1
 	} else if *v < 0 {

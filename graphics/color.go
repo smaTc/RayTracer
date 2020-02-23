@@ -2,7 +2,7 @@ package graphics
 
 //Color struct
 type Color struct {
-	Red, Green, Blue float64
+	Red, Green, Blue float32
 }
 
 //AddColor Function
@@ -21,7 +21,7 @@ func (c *Color) MulColor(c1 *Color) Color {
 }
 
 //Scale Function
-func (c *Color) Scale(s float64) Color {
+func (c *Color) Scale(s float32) Color {
 	return Color{c.Red * s, c.Green * s, c.Blue * s}
 }
 

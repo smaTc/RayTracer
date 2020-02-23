@@ -2,7 +2,7 @@ package graphics
 
 //Point struct
 type Point struct {
-	X, Y, Z float64
+	X, Y, Z float32
 	W       int
 }
 

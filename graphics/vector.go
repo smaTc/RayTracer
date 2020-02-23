@@ -4,7 +4,7 @@ import "math"
 
 //Vector struct
 type Vector struct {
-	X, Y, Z float64
+	X, Y, Z float32
 	W       int
 }
 
@@ -33,7 +33,7 @@ func SubVector(v1, v2 *Vector) Vector {
 }
 
 //Scale Function
-func (v1 *Vector) Scale(s float64) {
+func (v1 *Vector) Scale(s float32) {
 	v1.X *= s
 	v1.Y *= s
 	v1.Z *= s
@@ -41,8 +41,8 @@ func (v1 *Vector) Scale(s float64) {
 
 //Normalize Function
 func (v1 *Vector) Normalize() *Vector {
-	n := math.Sqrt(math.Pow(v1.X, 2) + math.Pow(v1.Y, 2) + math.Pow(v1.Z, 2) + math.Pow(float64(v1.W), 2))
-	v1.Scale(n)
+	n := math.Sqrt(math.Pow(float64(v1.X), 2) + math.Pow(float64(v1.Y), 2) + math.Pow(float64(v1.Z), 2) + math.Pow(float64(v1.W), 2))
+	v1.Scale(float32(n))
 	return v1
 }
 
@@ -55,8 +55,8 @@ func (v1 *Vector) Negate() {
 }
 
 //Dot Function
-func Dot(v1, v2 *Vector) float64 {
-	return v1.X*v2.X + v1.Y*v2.Y + v1.Z*v2.Z + float64(v1.W*v2.W)
+func Dot(v1, v2 *Vector) float32 {
+	return v1.X*v2.X + v1.Y*v2.Y + v1.Z*v2.Z + float32(v1.W*v2.W)
 }
 
 //Cross Function
