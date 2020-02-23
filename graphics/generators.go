@@ -5,7 +5,7 @@ import (
 )
 
 //ConvertTuple Function
-func convertTuple(x, y, z float32, w int) (interface{}, error) {
+func convertTuple(x, y, z, w float32) (interface{}, error) {
 	if w == 1 {
 		return Point{X: x, Y: y, Z: z, W: w}, nil
 	} else if w == 0 {
@@ -16,7 +16,7 @@ func convertTuple(x, y, z float32, w int) (interface{}, error) {
 }
 
 //NewTuple Function
-func NewTuple(x, y, z float32, w int) Tuple {
+func NewTuple(x, y, z, w float32) Tuple {
 	return Tuple{X: x, Y: y, Z: z, W: w}
 }
 

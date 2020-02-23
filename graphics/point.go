@@ -3,7 +3,7 @@ package graphics
 //Point struct
 type Point struct {
 	X, Y, Z float32
-	W       int
+	W       float32
 }
 
 func isPoint(i interface{}) bool {

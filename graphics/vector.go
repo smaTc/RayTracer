@@ -5,7 +5,7 @@ import "math"
 //Vector struct
 type Vector struct {
 	X, Y, Z float32
-	W       int
+	W       float32
 }
 
 func isVector(i interface{}) bool {

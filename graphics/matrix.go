@@ -89,11 +89,11 @@ func (m *Matrix) GetColumn(cl int) []float32 {
 
 //Multiply func
 func (m *Matrix) Multiply(obj interface{}) interface{} {
-	derefObj := obj
-	switch tp := derefObj.(type) {
+
+	switch tp := obj.(type) {
 	case Matrix:
 		var prod Matrix
-		mat := derefObj.(Matrix)
+		mat := obj.(Matrix)
 		prod.GenerateMatrixWithDimension(len(m.Values), len(mat.Values[0]))
 
 		for i := 0; i < len(prod.Values); i++ {
@@ -102,6 +102,34 @@ func (m *Matrix) Multiply(obj interface{}) interface{} {
 			}
 		}
 		return prod
+
+	case Vector:
+		if r, c := m.GetDimensions(); r != c && r != 4 {
+			return nil
+		}
+		var newVector Vector
+		vec := obj.(Vector)
+
+		newVector.X = m.Values[0][0]*vec.X + m.Values[0][1]*vec.Y + m.Values[0][2]*vec.Z + m.Values[0][3]*vec.W
+		newVector.Y = m.Values[1][0]*vec.X + m.Values[1][1]*vec.Y + m.Values[1][2]*vec.Z + m.Values[1][3]*vec.W
+		newVector.Z = m.Values[2][0]*vec.X + m.Values[2][1]*vec.Y + m.Values[2][2]*vec.Z + m.Values[2][3]*vec.W
+		newVector.X = m.Values[3][0]*vec.X + m.Values[3][1]*vec.Y + m.Values[3][2]*vec.Z + m.Values[3][3]*vec.W
+
+		return newVector
+
+	case Point:
+		if r, c := m.GetDimensions(); r != c && r != 4 {
+			return nil
+		}
+		var newPoint Point
+		p := obj.(Point)
+
+		newPoint.X = m.Values[0][0]*p.X + m.Values[0][1]*p.Y + m.Values[0][2]*p.Z + m.Values[0][3]*p.W
+		newPoint.Y = m.Values[1][0]*p.X + m.Values[1][1]*p.Y + m.Values[1][2]*p.Z + m.Values[1][3]*p.W
+		newPoint.Z = m.Values[2][0]*p.X + m.Values[2][1]*p.Y + m.Values[2][2]*p.Z + m.Values[2][3]*p.W
+		newPoint.X = m.Values[3][0]*p.X + m.Values[3][1]*p.Y + m.Values[3][2]*p.Z + m.Values[3][3]*p.W
+
+		return newPoint
 
 	default:
 		fmt.Println("Unsupported type:", tp)
@@ -205,7 +233,14 @@ func (m *Matrix) Inverse() (bool, Matrix) {
 }
 
 //Translate func
-func Translate(x, y, z float32) (bool, Matrix) {
-
-	return true, Matrix{}
+func Translate(x, y, z float32) Matrix {
+	var mat Matrix
+	mat.GenerateMatrixWithDimension(4, 4)
+	mat.Values = [][]float32{
+		{1, 0, 0, x},
+		{0, 1, 0, y},
+		{0, 0, 1, z},
+		{0, 0, 0, 1},
+	}
+	return mat
 }
