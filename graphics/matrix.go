@@ -1,7 +1,6 @@
 package graphics
 
 import (
-	"fmt"
 	"math"
 )
 
@@ -101,19 +100,22 @@ func (m *Matrix) Multiply(mat *Matrix) Matrix {
 }
 
 //Transpose func
-func (m *Matrix) Transpose() {
+func (m *Matrix) Transpose() (bool, Matrix) {
 	if m.Values == nil || m.Values[0] == nil {
-		return
+		return false, Matrix{}
 	}
 
-	mat := make([][]float64, len(m.Values))
+	//mat := make([][]float64, len(m.Values))
+	var mat Matrix
+	r, c := m.GetDimensions()
+	mat.GenerateMatrixWithDimension(r, c)
 
 	for i := 0; i < len(m.Values); i++ {
-		mat[i] = make([]float64, len(m.Values[0]))
-		mat[i] = m.GetColumn(i)
+		//mat.Values[i] = make([]float64, len(m.Values[0]))
+		mat.Values[i] = m.GetColumn(i)
 	}
-	m.Values = mat
-
+	//m.Values = mat
+	return true, mat
 }
 
 //Determinant func
@@ -160,14 +162,33 @@ func (m *Matrix) Minor(row, column int) float64 {
 //Cofactor func
 func (m *Matrix) Cofactor(row, column int) float64 {
 	sign := math.Pow(-1, float64(row+column))
-	fmt.Println("Row+Columns:", row+column, "; sign:", sign)
+	//fmt.Println("Row+Columns:", row+column, "; sign:", sign)
 	return sign * m.Minor(row, column)
 }
 
 //Inverse func
-func (m *Matrix) Inverse() bool {
+func (m *Matrix) Inverse() (bool, Matrix) {
 	if m.Determinant() == 0 {
-		return false
+		return false, Matrix{}
 	}
-	return true
+
+	var cofMat, invMat Matrix
+	r, c := m.GetDimensions()
+	cofMat.GenerateMatrixWithDimension(r, c)
+	invMat.GenerateMatrixWithDimension(r, c)
+
+	for i := 0; i < len(m.Values); i++ {
+		for j := 0; j < len(m.Values[i]); j++ {
+			cofMat.Values[i][j] = m.Cofactor(i, j)
+		}
+	}
+	_, transpCofMat := cofMat.Transpose()
+
+	for i := 0; i < len(m.Values); i++ {
+		for j := 0; j < len(m.Values[i]); j++ {
+			invMat.Values[i][j] = transpCofMat.Values[i][j] / m.Determinant()
+		}
+	}
+
+	return true, invMat
 }
