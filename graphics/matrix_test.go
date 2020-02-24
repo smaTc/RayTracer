@@ -1,6 +1,7 @@
 package graphics
 
 import (
+	"fmt"
 	"testing"
 )
 
@@ -196,18 +197,79 @@ func TestMatrix(t *testing.T) {
 
 func TestChapter4(t *testing.T) {
 
+	translationTest := Translation(5, -3, 2)
+	point := NewPoint(-3, 4, 5)
+
+	resPoint := NewPoint(2, 1, 7)
+
+	res := translationTest.Multiply(point).(Point)
+
+	if !resPoint.Equals(res) {
+		fmt.Println(res, ";", resPoint)
+
+		t.Error("Translation with Point not working")
+	}
+
+	_, transInvTest := translationTest.Inverse()
+
+	transInvPoint := transInvTest.Multiply(point).(Point)
+	resInvPoint := NewPoint(-8, 7, 3)
+
+	if !transInvPoint.Equals(resInvPoint) {
+		fmt.Println(transInvPoint, ";", resInvPoint)
+
+		t.Error("Translation with Point and Inversion not working")
+	}
+
+	vecTest := translationTest.Multiply(NewVector(-3, 4, 5)).(Vector)
+	vecRes := NewVector(-3, 6, 5)
+
+	if !vecTest.Equals(vecRes) {
+		t.Error("Translation with Vector not Working")
+	}
 }
 
-/*
+func TestScaling(t *testing.T) {
+	scalingTest := Scaling(2, 3, 4)
+	point := NewPoint(-4, 6, 8)
 
-var prod Matrix
-	prod.GenerateMatrixWithDimension(len(m.Values), len(mat.Values[0]))
+	resPoint := NewPoint(-8, 18, 32)
 
-	for i := 0; i < len(prod.Values); i++ {
-		for j := 0; j < len(prod.Values[0]); j++ {
-			prod.Values[i][j] = prod.rowTimesColumn(m.GetRow(i), mat.GetColumn(j))
-		}
+	scaleRes := scalingTest.Multiply(point).(Point)
+
+	if !scaleRes.Equals(resPoint) {
+		t.Error("scale with point not working")
 	}
-	return prod
 
-*/
+	vec := NewVector(-4, 6, 8)
+	resVec := NewVector(-8, 18, 32)
+
+	scaleResVec := scalingTest.Multiply(vec).(Vector)
+
+	if !scaleResVec.Equals(resVec) {
+		t.Error("scale with vector not working")
+	}
+
+	resVecInv := NewVector(-2, 2, 2)
+	_, invScaleRes := scalingTest.Inverse()
+
+	invscaleresVec := invScaleRes.Multiply(vec).(Vector)
+
+	if !invscaleresVec.Equals(resVecInv) {
+		t.Error("scale with vector and inversion not working")
+	}
+
+	reflectMat := Scaling(-1, 1, 1)
+	reflectPoint := NewPoint(2, 3, 4)
+	refResPoint := NewPoint(-2, 3, 4)
+
+	refRes := reflectMat.Multiply(reflectPoint).(Point)
+
+	if !refRes.Equals(refResPoint) {
+		t.Error("reflection not working")
+	}
+}
+
+func TestRotation() {
+
+}
