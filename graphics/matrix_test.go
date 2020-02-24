@@ -269,7 +269,3 @@ func TestScaling(t *testing.T) {
 		t.Error("reflection not working")
 	}
 }
-
-func TestRotation() {
-
-}
