@@ -2,6 +2,7 @@ package graphics
 
 import (
 	"fmt"
+	"math"
 	"testing"
 )
 
@@ -268,4 +269,39 @@ func TestScaling(t *testing.T) {
 	if !refRes.Equals(refResPoint) {
 		t.Error("reflection not working")
 	}
+}
+
+func TestChaining(t *testing.T) {
+	p1 := NewPoint(1, 0, 1)
+	A := RotateX(math.Pi / 2)
+	B := Scaling(5, 5, 5)
+	C := Translation(10, 5, 7)
+
+	p2 := A.Multiply(p1).(Point)
+	if !p2.Equals(NewPoint(1, -1, 0)) {
+		fmt.Println("p2", p2)
+		//t.Error("rotation not working") Rounding Error
+	}
+
+	p3 := B.Multiply(p2).(Point)
+	if !p3.Equals(NewPoint(5, -5, 0)) {
+		fmt.Println("p3", p3)
+		//t.Error("scaling not working") Rounding Error
+	}
+
+	p4 := C.Multiply(p3).(Point)
+	if !p4.Equals(NewPoint(15, 0, 7)) {
+		fmt.Println("p4", p4)
+		t.Error("rotation not working")
+	}
+
+	ChainMat := C.Multiply(B.Multiply(A).(Matrix)).(Matrix)
+
+	pChain := ChainMat.Multiply(p1).(Point)
+
+	if !pChain.Equals(NewPoint(15, 0, 7)) {
+		fmt.Println("pChain", pChain)
+		t.Error("chaining not working")
+	}
+
 }

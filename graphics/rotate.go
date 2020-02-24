@@ -2,7 +2,8 @@ package graphics
 
 import "math"
 
-func rotateX(radian float32) Matrix {
+//RotateX func
+func RotateX(radian float32) Matrix {
 	var rotMatX Matrix
 	rad64 := float64(radian)
 	rotMatX.GenerateMatrixWithDimension(4, 4)
@@ -16,7 +17,8 @@ func rotateX(radian float32) Matrix {
 	return rotMatX
 }
 
-func rotateY(radian float32) Matrix {
+//RotateY func
+func RotateY(radian float32) Matrix {
 	var rotMatY Matrix
 	rad64 := float64(radian)
 	rotMatY.GenerateMatrixWithDimension(4, 4)
@@ -30,7 +32,8 @@ func rotateY(radian float32) Matrix {
 	return rotMatY
 }
 
-func rotateZ(radian float64) Matrix {
+//RotateZ func
+func RotateZ(radian float64) Matrix {
 	var rotMatZ Matrix
 	//rad64 := float64(radian)
 	rotMatZ.GenerateMatrixWithDimension(4, 4)

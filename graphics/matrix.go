@@ -244,3 +244,9 @@ func (m *Matrix) Scaling(x, y, z float32) interface{} {
 	scaleMat := Scaling(x, y, z)
 	return m.Multiply(scaleMat)
 }
+
+//Shear func
+func (m *Matrix) Shear(xy, xz, yx, yz, zx, zy float32) interface{} {
+	shearMat := Shearing(xy, xz, yx, yz, zx, zy)
+	return m.Multiply(shearMat)
+}
