@@ -1,5 +1,7 @@
 package graphics
 
+import "errors"
+
 //Point struct
 type Point struct {
 	X, Y, Z float32
@@ -28,4 +30,41 @@ func AddPoint(v1, v2 Point) Point {
 //SubPoint Function
 func SubPoint(v1, v2 Point) Point {
 	return NewPoint(v1.X-v2.X, v1.Y-v2.Y, v1.Z-v2.Z)
+}
+
+func (p *Point) Add(tuple interface{}) (Point, error) {
+	if isVector(tuple) {
+		tp := Tuple(tuple.(Vector))
+		pTemp := Tuple(*p)
+		newPoint := Point(AddTuple(&pTemp, &tp))
+		return newPoint, nil
+	} else if isPoint(tuple) {
+		return Point{}, errors.New("Cant add Point")
+	} else {
+		return Point{}, errors.New("wrong type")
+	}
+
+	/*if isVector(tuple) {
+		tu1 := tuple.(Vector)
+		return AddVectors(&tu1, &tu2)
+	} else if isPoint(t1) && isVector(t2) {
+		tu1 := Tuple(t1.(Point))
+		tu2 := Tuple(t2.(Vector))
+		res := Point(AddTuple(&tu1, &tu2))
+		return res
+	}
+	return nil*/
+}
+
+func (p *Point) Subtract(tuple interface{}) (Point, error) {
+	if isVector(tuple) {
+		tp := Tuple(tuple.(Vector))
+		pTemp := Tuple(*p)
+		newPoint := Point(SubTuple(&pTemp, &tp))
+		return newPoint, nil
+	} else if isPoint(tuple) {
+		return Point{}, errors.New("Cant sub Point")
+	} else {
+		return Point{}, errors.New("wrong type")
+	}
 }

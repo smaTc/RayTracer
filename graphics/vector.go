@@ -17,6 +17,18 @@ func isVector(i interface{}) bool {
 	}
 }
 
+func (v1 *Vector) Add(v2 Vector) Vector {
+	vec := AddVectors(v1, &v2)
+	*v1 = vec
+	return vec
+}
+
+func (v1 *Vector) Substract(v2 Vector) Vector {
+	vec := SubVectors(v1, &v2)
+	*v1 = vec
+	return vec
+}
+
 //Equals Vector func
 func (v1 *Vector) Equals(v2 Vector) bool {
 	return *v1 == v2
@@ -28,15 +40,20 @@ func AddVectors(v1, v2 *Vector) Vector {
 }
 
 //SubVector Function
-func SubVector(v1, v2 *Vector) Vector {
+func SubVectors(v1, v2 *Vector) Vector {
 	return NewVector(v1.X-v2.X, v1.Y-v2.Y, v1.Z-v2.Z)
 }
 
 //Scale Function
-func (v1 *Vector) Scale(s float32) {
-	v1.X *= s
-	v1.Y *= s
-	v1.Z *= s
+func (v1 *Vector) Scale(s float32) Vector {
+	scaledVec := NewVector(v1.X, v1.Y, v1.Z)
+	scaledVec.X *= s
+	scaledVec.Y *= s
+	scaledVec.Z *= s
+	return scaledVec
+	//v1.X *= s
+	//v1.Y *= s
+	//v1.Z *= s
 }
 
 //Normalize Function
