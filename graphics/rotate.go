@@ -28,8 +28,7 @@ func RotateY(radian float32) Matrix {
 		{0, 1, 0, 0},
 		{-float32(math.Sin(rad64)), 0, float32(math.Cos(rad64)), 0},
 		{0, 0, 0, 1},
-	}
-	return rotMatY
+	}	return rotMatY
 }
 
 //RotateZ func
