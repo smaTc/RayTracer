@@ -41,7 +41,7 @@ func AddVectors(v1, v2 *Vector) Vector {
 	return NewVector(v1.X+v2.X, v1.Y+v2.Y, v1.Z+v2.Z)
 }
 
-//SubVector Function
+//SubVectors Function
 func SubVectors(v1, v2 *Vector) Vector {
 	return NewVector(v1.X-v2.X, v1.Y-v2.Y, v1.Z-v2.Z)
 }

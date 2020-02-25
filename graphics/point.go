@@ -32,10 +32,11 @@ func SubPoint(v1, v2 Point) Point {
 	return NewPoint(v1.X-v2.X, v1.Y-v2.Y, v1.Z-v2.Z)
 }
 
-func (p *Point) Add(tuple interface{}) (Point, error) {
+//Add func
+func (p1 *Point) Add(tuple interface{}) (Point, error) {
 	if isVector(tuple) {
 		tp := Tuple(tuple.(Vector))
-		pTemp := Tuple(*p)
+		pTemp := Tuple(*p1)
 		newPoint := Point(AddTuple(&pTemp, &tp))
 		return newPoint, nil
 	} else if isPoint(tuple) {
@@ -56,10 +57,11 @@ func (p *Point) Add(tuple interface{}) (Point, error) {
 	return nil*/
 }
 
-func (p *Point) Subtract(tuple interface{}) (Point, error) {
+//Subtract func
+func (p1 *Point) Subtract(tuple interface{}) (Point, error) {
 	if isVector(tuple) {
 		tp := Tuple(tuple.(Vector))
-		pTemp := Tuple(*p)
+		pTemp := Tuple(*p1)
 		newPoint := Point(SubTuple(&pTemp, &tp))
 		return newPoint, nil
 	} else if isPoint(tuple) {
