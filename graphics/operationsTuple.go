@@ -39,7 +39,7 @@ func Sub(t1, t2 interface{}) interface{} {
 	if isVector(t1) && isVector(t2) {
 		tu1 := t1.(Vector)
 		tu2 := t2.(Vector)
-		return SubVector(&tu1, &tu2)
+		return SubVectors(&tu1, &tu2)
 	} else if isPoint(t1) && isVector(t2) {
 		tu1 := Tuple(t1.(Point))
 		tu2 := Tuple(t2.(Vector))
