@@ -17,12 +17,14 @@ func isVector(i interface{}) bool {
 	}
 }
 
+//Add func
 func (v1 *Vector) Add(v2 Vector) Vector {
 	vec := AddVectors(v1, &v2)
 	*v1 = vec
 	return vec
 }
 
+//Substract func
 func (v1 *Vector) Substract(v2 Vector) Vector {
 	vec := SubVectors(v1, &v2)
 	*v1 = vec
