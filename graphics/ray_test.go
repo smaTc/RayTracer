@@ -1,4 +1,4 @@
-package testing
+package graphics
 
 import "testing"
 
