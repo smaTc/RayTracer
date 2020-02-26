@@ -23,11 +23,51 @@ func TestPosition(t *testing.T) {
 
 func TestIntersection(t *testing.T) {
 	r := NewRay(NewPoint(0, 0, -5), NewVector(0, 0, 1))
-	s := NewSphere()
+	s := NewSphere(NewPoint(0, 0, 0), 1)
 	xs := r.Intersects(s)
 
 	if xs[0] != 4.0 && xs[1] != 6.0 {
 		t.Error("intersect not working")
 	}
 
+}
+
+func TestIntersectionTangent(t *testing.T) {
+	r := NewRay(NewPoint(0, 1, -5), NewVector(0, 0, 1))
+	s := NewSphere(NewPoint(0, 0, 0), 1)
+	xs := r.Intersects(s)
+
+	if xs[0] != 5.0 && xs[1] != 5.0 {
+		t.Error("intersect not working")
+	}
+}
+
+func TestRayMissesSpehere(t *testing.T) {
+	r := NewRay(NewPoint(0, 2, -5), NewVector(0, 0, 1))
+	s := NewSphere(NewPoint(0, 0, 0), 1)
+	xs := r.Intersects(s)
+
+	if len(xs) != 0 {
+		t.Error("intersect not working")
+	}
+}
+
+func TestRayOriginSphere(t *testing.T) {
+	r := NewRay(NewPoint(0, 0, 0), NewVector(0, 0, 1))
+	s := NewSphere(NewPoint(0, 0, 0), 1)
+	xs := r.Intersects(s)
+
+	if xs[0] != -1.0 && xs[1] != 1.0 {
+		t.Error("intersect not working")
+	}
+}
+
+func TestSphereBehindRay(t *testing.T) {
+	r := NewRay(NewPoint(0, 0, 5), NewVector(0, 0, 1))
+	s := NewSphere(NewPoint(0, 0, 0), 1)
+	xs := r.Intersects(s)
+
+	if xs[0] != -6.0 && xs[1] != -4.0 {
+		t.Error("intersect not working")
+	}
 }

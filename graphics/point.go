@@ -58,14 +58,17 @@ func (p1 *Point) Add(tuple interface{}) (Point, error) {
 }
 
 //Subtract func
-func (p1 *Point) Subtract(tuple interface{}) (Point, error) {
+func (p1 *Point) Subtract(tuple interface{}) (interface{}, error) {
 	if isVector(tuple) {
 		tp := Tuple(tuple.(Vector))
 		pTemp := Tuple(*p1)
 		newPoint := Point(SubTuple(&pTemp, &tp))
 		return newPoint, nil
 	} else if isPoint(tuple) {
-		return Point{}, errors.New("Cant sub Point")
+		tp := Tuple(tuple.(Point))
+		pTemp := Tuple(*p1)
+		newVector := Vector(SubTuple(&pTemp, &tp))
+		return newVector, nil
 	} else {
 		return Point{}, errors.New("wrong type")
 	}

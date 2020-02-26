@@ -9,8 +9,8 @@ type Sphere struct {
 }
 
 //NewSphere func
-func NewSphere() Sphere {
-	return Sphere{}
+func NewSphere(orig Point, rad float32) Sphere {
+	return Sphere{Origin: orig, Radius: rad}
 }
 
 //RandSphere func
