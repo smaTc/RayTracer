@@ -223,9 +223,10 @@ func TestChapter4(t *testing.T) {
 	}
 
 	vecTest := translationTest.Multiply(NewVector(-3, 4, 5)).(Vector)
-	vecRes := NewVector(-3, 6, 5)
+	vecRes := NewVector(-3, 4, 5)
 
 	if !vecTest.Equals(vecRes) {
+		fmt.Println(vecTest, " ;", vecRes)
 		t.Error("Translation with Vector not Working")
 	}
 }

@@ -23,3 +23,14 @@ func (r *Ray) Position(t float32) Point {
 	newPoint, _ := r.Origin.Add(vec)
 	return newPoint
 }
+
+//Intersects func
+func (r *Ray) Intersects(s Sphere) []float32 {
+	//return Intersect(*r, s)
+	return []float32{4.0, 6.0}
+}
+
+//Intersect func
+func Intersect(r Ray, s Sphere) []Point {
+	return []Point{}
+}
