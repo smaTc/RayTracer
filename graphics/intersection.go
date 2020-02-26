@@ -3,6 +3,7 @@ package graphics
 import (
 	"fmt"
 	"math"
+	"sort"
 )
 
 //Intersection struct
@@ -49,17 +50,37 @@ func Discriminant(r Ray, s Sphere) (float32, float32, float32) {
 	//phereToRay, _ := s.Origin.Subtract(r.Origin)
 
 	sphereToRayVector := sphereToRay.(Vector)
-	fmt.Println("SpheretoRay", sphereToRayVector)
+	//fmt.Println("SpheretoRay", sphereToRayVector)
 	a := Dot(&r.Direction, &r.Direction)
 	b := 2 * Dot(&r.Direction, &sphereToRayVector)
 	c := Dot(&sphereToRayVector, &sphereToRayVector) - 1
 
 	discriminant := b*b - 4*a*c
-	fmt.Println("dab", discriminant, a, b)
+	//fmt.Println("dab", discriminant, a, b)
 	return discriminant, a, b
 }
 
 //Hit func
-func Hit(intersec []Intersection) Intersection {
+func Hit(intersecs []Intersection) Intersection {
+	//fmt.Println("unsorted", intersecs)
+	sort.Slice(intersecs, func(i, j int) bool {
+		return intersecs[i].T < intersecs[j].T
+	})
+	//fmt.Println("sorted", intersecs)
+
+	hitIndex := -1
+
+	for i, is := range intersecs {
+		if is.T >= 0 {
+			hitIndex = i
+			break
+		}
+	}
+
+	if hitIndex > -1 {
+		//fmt.Println("hit:", intersecs[hitIndex])
+		return intersecs[hitIndex]
+	}
+
 	return Intersection{}
 }
