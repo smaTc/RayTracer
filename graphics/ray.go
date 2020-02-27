@@ -34,3 +34,24 @@ func (r *Ray) Intersects(s Sphere) []Intersection {
 
 	return intersecs
 }
+
+//Multiply func
+func (r *Ray) Multiply(m Matrix) Ray {
+	//no := r.Origin.Multiply(m)
+	//no := m.Multiply(r.Origin).(Point)
+
+	//nd := r.Direction.Multiply(m)
+	//nd := m.Multiply(r.Direction).(Vector)
+	//fmt.Println("no,nd:", no, nd)
+	//return NewRay(no, nd)
+	return Ray{}
+}
+
+//Transform func
+func (r *Ray) Transform(m Matrix) Ray {
+	no := m.Multiply(r.Origin).(Point)
+	nd := m.Multiply(r.Direction).(Vector)
+
+	return NewRay(no, nd)
+
+}

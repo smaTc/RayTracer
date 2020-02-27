@@ -129,6 +129,11 @@ func (m *Matrix) Multiply(obj interface{}) interface{} {
 		newPoint.Z = m.Values[2][0]*p.X + m.Values[2][1]*p.Y + m.Values[2][2]*p.Z + m.Values[2][3]*p.W
 		newPoint.W = m.Values[3][0]*p.X + m.Values[3][1]*p.Y + m.Values[3][2]*p.Z + m.Values[3][3]*p.W
 
+		/*newPoint.X = m.Values[0][0]*p.X + m.Values[1][0]*p.Y + m.Values[2][0]*p.Z + m.Values[3][0]*p.W
+		newPoint.Y = m.Values[0][1]*p.X + m.Values[1][1]*p.Y + m.Values[2][1]*p.Z + m.Values[3][1]*p.W
+		newPoint.Z = m.Values[0][2]*p.X + m.Values[1][2]*p.Y + m.Values[2][2]*p.Z + m.Values[3][2]*p.W
+		newPoint.W = m.Values[0][3]*p.X + m.Values[1][3]*p.Y + m.Values[2][3]*p.Z + m.Values[3][3]*p.W*/
+
 		return newPoint
 
 	default:
@@ -210,6 +215,7 @@ func (m *Matrix) Inverse() (bool, Matrix) {
 	if m.Determinant() == 0 {
 		return false, Matrix{}
 	}
+	//fmt.Println("det:", m.Determinant())
 
 	var cofMat, invMat Matrix
 	r, c := m.GetDimensions()

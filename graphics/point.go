@@ -1,6 +1,8 @@
 package graphics
 
-import "errors"
+import (
+	"errors"
+)
 
 //Point struct
 type Point struct {
@@ -72,4 +74,30 @@ func (p1 *Point) Subtract(tuple interface{}) (interface{}, error) {
 	} else {
 		return Point{}, errors.New("wrong type")
 	}
+}
+
+//Multiply func
+func (p1 *Point) Multiply(input interface{}) Point {
+	if isMatrix(input) {
+		m := input.(Matrix)
+
+		if r, c := m.GetDimensions(); r != c && r != 4 {
+			return Point{}
+		}
+		var np Point
+		//fmt.Println("Matrix to Multiply:", m.Values)
+		col0 := m.GetColumn(0)
+		col1 := m.GetColumn(1)
+		col2 := m.GetColumn(2)
+		col3 := m.GetColumn(3)
+		//fmt.Println("cols:", col0, col1, col2, col3)
+
+		np.X = p1.X*col0[0] + p1.Y*col0[1] + p1.Z*col0[2] + p1.W*col0[3]
+		np.Y = p1.X*col1[0] + p1.Y*col1[1] + p1.Z*col1[2] + p1.W*col1[3]
+		np.Z = p1.X*col2[0] + p1.Y*col2[1] + p1.Z*col2[2] + p1.W*col2[3]
+		np.W = p1.X*col3[0] + p1.Y*col3[1] + p1.Z*col3[2] + p1.W*col3[3]
+
+		return np
+	}
+	return Point{}
 }

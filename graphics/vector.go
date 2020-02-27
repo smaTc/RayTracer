@@ -54,3 +54,27 @@ func (v1 *Vector) Negate() {
 	v1.Z = -v1.Z
 	v1.W = -v1.W
 }
+
+//Multiply func
+func (v1 *Vector) Multiply(input interface{}) Vector {
+	if isMatrix(input) {
+		m := input.(Matrix)
+
+		if r, c := m.GetDimensions(); r != c && r != 4 {
+			return Vector{}
+		}
+		var nv Vector
+		col0 := m.GetColumn(0)
+		col1 := m.GetColumn(1)
+		col2 := m.GetColumn(2)
+		col3 := m.GetColumn(3)
+
+		nv.X = v1.X*col0[0] + v1.Y*col0[1] + v1.Z*col0[2] + v1.W*col0[3]
+		nv.Y = v1.X*col1[0] + v1.Y*col1[1] + v1.Z*col1[2] + v1.W*col1[3]
+		nv.Z = v1.X*col2[0] + v1.Y*col2[1] + v1.Z*col2[2] + v1.W*col2[3]
+		nv.W = v1.X*col3[0] + v1.Y*col3[1] + v1.Z*col3[2] + v1.W*col3[3]
+
+		return nv
+	}
+	return Vector{}
+}

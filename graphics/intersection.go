@@ -3,6 +3,7 @@ package graphics
 import (
 	"fmt"
 	"math"
+	"reflect"
 	"sort"
 )
 
@@ -10,6 +11,16 @@ import (
 type Intersection struct {
 	T      float32
 	Object interface{}
+}
+
+//Equals func
+func (is *Intersection) Equals(is2 Intersection) bool {
+	if is.T != is2.T || !reflect.DeepEqual(is.Object, is2.Object) {
+		return false
+	}
+	//fmt.Println("types:", reflect.TypeOf(is.Object), reflect.TypeOf(is2.Object))
+
+	return true
 }
 
 //NewIntersection func
@@ -26,7 +37,9 @@ func Intersections(i1 ...Intersection) []Intersection {
 
 //Intersect func
 func Intersect(r Ray, s Sphere) []Intersection {
-	discr, a, b := Discriminant(r, s)
+	_, rInv := s.Transform.Inverse()
+	rTrans := r.Transform(rInv)
+	discr, a, b := Discriminant(rTrans, s)
 	if discr < 0 {
 		return nil
 	}
